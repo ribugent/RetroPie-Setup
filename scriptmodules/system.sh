@@ -71,7 +71,7 @@ function get_os_version() {
     __os_desc="${os[1]}"
     __os_release="${os[2]}"
     __os_codename="${os[3]}"
-    
+
     local error=""
     case "$__os_id" in
         Raspbian|Debian)
@@ -152,7 +152,7 @@ function get_os_version() {
             error="Unsupported OS"
             ;;
     esac
-    
+
     [[ -n "$error" ]] && fatalError "$error\n\n$(lsb_release -idrc)"
 
     # add 32bit/64bit to platform flags
@@ -202,7 +202,7 @@ function get_retropie_depends() {
         echo "deb http://archive.raspberrypi.org/debian/ $__os_codename main" >>$config
     fi
 
-    local depends=(git dialog wget gcc g++ build-essential unzip xmlstarlet python-pyudev)
+    local depends=(git dialog wget gcc g++ build-essential unzip xmlstarlet python-pyudev unrar-free)
     if [[ -n "$__default_gcc_version" ]]; then
         depends+=(gcc-$__default_gcc_version g++-$__default_gcc_version)
     fi

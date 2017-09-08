@@ -951,6 +951,16 @@ function downloadAndExtract() {
             runCmd unzip $opts -o "$tmp/$file" -d "$dest"
             rm -rf "$tmp"
             ret=$?
+            ;;
+        rar)
+            is_tar=0
+            is_tar=0
+            local tmp="$(mktemp -d)"
+            local file="${url##*/}"
+            runCmd wget -q -O"$tmp/$file" "$url"
+            runCmd unrar-free -x "$tmp/$file" "$dest"
+            rm -rf "$tmp"
+            ret=$?
     esac
 
     if [[ "$is_tar" -eq 1 ]]; then
@@ -1194,7 +1204,7 @@ _EOF_
 ## @param cmd commandline to launch
 ## @brief Adds a new emulator for a system.
 ## @details This is the primary function for adding emulators to a system which can be
-## switched between via the runcommand launch menu 
+## switched between via the runcommand launch menu
 ##
 ##     addEmulator 1 "vice-x64" "c64" "$md_inst/bin/x64 %ROM%"
 ##     addEmulator 0 "vice-xvic" "c64" "$md_inst/bin/xvic %ROM%"
